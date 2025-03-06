@@ -4,7 +4,8 @@ import {
   getTours,
   getTourById,
   updateTour,
-  deleteTour
+  deleteTour,
+  addReview
 } from "../tours/tour.controller.js";
 
 const router = express.Router();
@@ -12,6 +13,8 @@ const router = express.Router();
 router.post("/", createTour);
 
 router.get("/", getTours);
+
+router.post("/:id/addReview", addReview);
 
 router.get("/:id", getTourById);
 
