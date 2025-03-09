@@ -24,3 +24,28 @@ export const createBooking = async (req, res) => {
     res.status(500).json({ message: "Server error", error: error });
   }
 };
+
+export const getMyBooking = async (req, res) => {
+  try {
+    const booking = await Booking.find();
+    res.status(200).json(booking);
+  } catch (error) {
+    res.status(500).json({ message: "Server error", error: error });
+  }
+};
+
+export const cancelBooking = async (req, res) => {
+  try {
+    const bookingId = req.params.id;
+    const booking = await Booking.findById(bookingId);
+    if (!booking) {
+      res.status(404).json({ message: "Booking not found" });
+    }
+
+    booking.status = "cancel";
+    await booking.save();
+    res.status(200).json({ message: "Booking canceled successfully" });
+  } catch (error) {
+    res.status(500).json({ message: "Server error", error: error });
+  }
+};
