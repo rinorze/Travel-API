@@ -1,3 +1,4 @@
+import mongoose from "mongoose";
 import Booking from "./booking.model.js";
 import Tour from "../tours/tour.model.js";
 
@@ -27,10 +28,16 @@ export const createBooking = async (req, res) => {
 
 export const getMyBooking = async (req, res) => {
   try {
-    const booking = await Booking.find();
-    res.status(200).json(booking);
+    const userId = req.params.id;
+    const bookings = await Booking.find({ user: userId }).populate(
+      "tour",
+      "title location price"
+    );
+
+    res.status(200).json(bookings);
   } catch (error) {
-    res.status(500).json({ message: "Server error", error: error });
+    console.error("Error:", error);
+    res.status(500).json({ message: "Server error", error: error.message });
   }
 };
 
@@ -42,7 +49,7 @@ export const cancelBooking = async (req, res) => {
       res.status(404).json({ message: "Booking not found" });
     }
 
-    booking.status = "cancel";
+    booking.status = "canceled";
     await booking.save();
     res.status(200).json({ message: "Booking canceled successfully" });
   } catch (error) {

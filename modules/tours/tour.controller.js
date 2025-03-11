@@ -10,9 +10,10 @@ export const createTour = async (req, res) => {
       city,
       price,
       averageRating,
-      image,
       createdBy
     } = req.body;
+
+    const image = req.file ? req.file.path : null;
 
     const tour = new Tour({
       title,

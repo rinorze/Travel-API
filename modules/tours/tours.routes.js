@@ -7,10 +7,11 @@ import {
   deleteTour,
   addReview
 } from "../tours/tour.controller.js";
+import upload from "../../config/multer.js";
 
 const router = express.Router();
 
-router.post("/", createTour);
+router.post("/", upload.single("image"), createTour);
 
 router.get("/", getTours);
 

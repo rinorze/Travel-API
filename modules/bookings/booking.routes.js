@@ -8,7 +8,7 @@ import {
 const router = express.Router();
 
 router.post("/:id/booking", createBooking);
-router.get("/myBookings", getMyBooking);
+router.get("/myBookings/:id", getMyBooking);
 router.delete("/:id/cancel", cancelBooking);
 
 export default router;
