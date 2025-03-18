@@ -6,11 +6,12 @@ import {
   updateUser,
   deleteUser
 } from "./user.controller.js";
+import { isAuthenticated } from "../../middleware/auth.middleware.js";
 // Links - user.routes.js
 
 const router = express.Router();
 
-router.get("/getAllUsers", getUsers);
+router.get("/getAllUsers", isAuthenticated, getUsers);
 router.post("/createUsers", createUser);
 router.get("/getOneUser/:id", getUserById);
 router.put("/updateUser/:id", updateUser); // to update something we need to use put
