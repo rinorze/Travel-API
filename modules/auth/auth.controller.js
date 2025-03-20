@@ -26,7 +26,7 @@ export const login = async (req, res) => {
       role: user.role
     };
 
-    const token = jwt.sign(payload, secrectKey, { expiresIn: "8h" });
+    const token = jwt.sign(payload, secretKey, { expiresIn: "8h" });
     res.status(200).json({ token });
   } catch (error) {
     res.status(500).json({ message: "Server Error", error: error });
